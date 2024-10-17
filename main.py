@@ -7,19 +7,13 @@ from config.config import ALLOWED_ORIGINS
 
 app = FastAPI(title="Test assigment for Starnavi")
 
-
-for router in all_routers:
-    app.include_router(router)
-
 for router in all_routers:
     app.include_router(
         router,
         prefix="/api/v1",
     )
 
-origins = [
-    ALLOWED_ORIGINS,
-]
+origins = [ALLOWED_ORIGINS]
 
 app.add_middleware(
     CORSMiddleware,

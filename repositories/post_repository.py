@@ -50,4 +50,3 @@ class PostRepository:
             db.delete(post)
             db.commit()
             return True
-
