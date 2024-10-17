@@ -1,0 +1,16 @@
+vendor/
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+*_grpc.py
+*_pb2.py
+*.pyi
+
+git/
+
+.dockerignore
+
+.gitignore
