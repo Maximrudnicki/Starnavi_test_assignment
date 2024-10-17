@@ -38,7 +38,7 @@ def get_all_posts(post_service: PostService = Depends(get_post_service)):
     return post_service.get_all_posts()
 
 
-@router.put("/{post_id}", response_model=PostResponse)
+@router.patch("/{post_id}", response_model=PostResponse)
 def update_post(
     post_id: int,
     post_data: PostUpdate,
@@ -53,7 +53,7 @@ def update_post(
             detail="You are not allowed to update this post.",
         )
 
-    return post_service.update_post(post_id, post_data.dict(exclude_unset=True))
+    return post_service.update_post(post_id, post_data.model_dump(exclude_unset=True))
 
 
 @router.delete("/{post_id}", status_code=status.HTTP_204_NO_CONTENT)
