@@ -2,6 +2,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from config.db import Base
 from models.post import Post
+from models.comment import Comment
 
 
 class User(Base):
@@ -16,3 +17,4 @@ class User(Base):
     auto_reply_delay: Mapped[int] = mapped_column(default=3600)
 
     posts: Mapped[list["Post"]] = relationship("Post", back_populates="user")
+    comments: Mapped[list["Comment"]] = relationship("Comment", back_populates="user")
