@@ -13,7 +13,7 @@ class CommentService:
 
     def get_comment_by_id(self, comment_id: int) -> Comment | None:
         comment = self.comment_repository.get_by_id(comment_id)
-        if not comment:
+        if not comment or comment.is_banned :
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, detail="Comment not found."
             )
@@ -30,8 +30,7 @@ class CommentService:
 
     def get_all_comments(self) -> list[Comment]:
         comments = self.comment_repository.get_all()
-        res = [comment for comment in comments if not comment.is_banned]
-        return comments
+        return [comment for comment in comments if not comment.is_banned]
 
     def update_comment(self, comment_id: int, updates: dict) -> Comment | None:
         comment = self.comment_repository.update(comment_id, updates)
