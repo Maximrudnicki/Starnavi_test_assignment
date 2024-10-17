@@ -21,6 +21,10 @@ class UserRepository:
     def get_by_id(self, user_id: int) -> User | None:
         with self.get_db() as db:
             return db.query(User).filter(User.id == user_id).first()
+        
+    def get_by_email(self, email: str) -> User | None:
+        with self.get_db() as db:
+            return db.query(User).filter(User.email == email).first()
 
     def get_all(self) -> list[User]:
         with self.get_db() as db:
