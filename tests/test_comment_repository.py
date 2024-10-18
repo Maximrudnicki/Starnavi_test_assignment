@@ -1,3 +1,4 @@
+from datetime import datetime
 import sys
 import os
 
@@ -111,6 +112,62 @@ def test_update_comment_not_found():
     updates = {"text": "This won't work."}
     updated_comment = comment_repo.update(999, updates)
     assert updated_comment is None
+
+
+def test_update_comment_ban():
+    user_repo = UserRepository()
+    user = User(
+        username="testuser", email="test@example.com", password="hashedpassword"
+    )
+    user_id = user_repo.create(user)
+
+    post_repo = PostRepository()
+    post = Post(title="Test Post", text="This is a test post.", author_id=user_id)
+    post_id = post_repo.create(post)
+
+    comment_repo = CommentRepository()
+    comment = Comment(post_id=post_id, user_id=user_id, text="Test comment to ban.")
+    comment_id = comment_repo.create(comment)
+
+    # Ban the comment
+    updates = {"is_banned": True}
+    updated_comment = comment_repo.update(comment_id, updates)
+
+    assert updated_comment is not None
+    assert updated_comment.is_banned is True
+    assert updated_comment.banned_at is not None
+    assert isinstance(updated_comment.banned_at, datetime)
+
+
+def test_update_comment_unban():
+    user_repo = UserRepository()
+    user = User(
+        username="testuser", email="test@example.com", password="hashedpassword"
+    )
+    user_id = user_repo.create(user)
+
+    post_repo = PostRepository()
+    post = Post(title="Test Post", text="This is a test post.", author_id=user_id)
+    post_id = post_repo.create(post)
+
+    comment_repo = CommentRepository()
+    comment = Comment(post_id=post_id, user_id=user_id, text="Test comment to unban.")
+    comment_id = comment_repo.create(comment)
+
+    # First, ban the comment
+    updates = {"is_banned": True}
+    updated_comment = comment_repo.update(comment_id, updates)
+
+    assert updated_comment is not None
+    assert updated_comment.is_banned is True
+    assert updated_comment.banned_at is not None
+
+    # Now unban the comment
+    updates = {"is_banned": False}
+    updated_comment = comment_repo.update(comment_id, updates)
+
+    assert updated_comment.is_banned is False
+    assert updated_comment.banned_at is None  # Reset the banned_at field
 
 
 def test_delete_comment_success():

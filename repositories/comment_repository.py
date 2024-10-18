@@ -1,5 +1,6 @@
-from config.db import SessionLocal
+from datetime import datetime
 
+from config.db import SessionLocal
 from models.comment import Comment
 
 
@@ -39,9 +40,18 @@ class CommentRepository:
             comment = db.query(Comment).filter(Comment.id == comment_id).first()
             if not comment:
                 return None
+
+            if 'is_banned' in updates:
+                is_banned = updates['is_banned']
+                if is_banned and not comment.is_banned:
+                    updates['banned_at'] = datetime.now()
+                elif not is_banned and comment.is_banned:
+                    updates['banned_at'] = None
+
             for key, value in updates.items():
                 if hasattr(comment, key):
                     setattr(comment, key, value)
+
             db.commit()
             db.refresh(comment)
             return comment

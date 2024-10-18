@@ -1,3 +1,4 @@
+from typing import Optional
 from sqlalchemy import Text, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
@@ -14,6 +15,7 @@ class Comment(Base):
     text: Mapped[str] = mapped_column(Text, nullable=False)
     created_at: Mapped[datetime] = mapped_column(default=datetime.now())
     is_banned: Mapped[bool] = mapped_column(default=False)
+    banned_at: Mapped[Optional[datetime]] = mapped_column(nullable=True)
 
     post: Mapped["Post"] = relationship("Post", back_populates="comments")
     user: Mapped["User"] = relationship("User", back_populates="comments")
