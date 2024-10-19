@@ -76,7 +76,7 @@ To stop the containers: docker-compose down
 
 ##### Once containers are up, just visit localhost:8000 or check the postman here: https://www.postman.com/navigation-engineer-62741940/test-assignment-for-starnavi-by-maxym-rudnytskyi/overview
 
-Keep in mind that you need to be signed in in Postman and create a fork before using the application
+Keep in mind that you need to be signed in in Postman and create a fork before using the application. You would need to use Bearer token as an authentication. So, please login then copy token and use the application.
 
 ### Additional Information
 
