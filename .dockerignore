@@ -1,5 +1,9 @@
 vendor/
 
+.pytest_cache
+
+venv/
+
 __pycache__/
 *.pyc
 *.pyo
@@ -14,3 +18,5 @@ git/
 .dockerignore
 
 .gitignore
+
+*.env

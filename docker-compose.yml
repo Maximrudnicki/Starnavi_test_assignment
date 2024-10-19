@@ -1,15 +1,22 @@
-version: '3.8'
-
 services:
   fastapi:
     build: .
     ports:
       - "8000:8000"
     depends_on:
+      - db
       - redis
       - celery
     environment:
       - REDIS_URL=redis://redis:6379/0
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASS=password
+      - ALLOWED_ORIGINS=*
+      - SECRET_KEY=4A1DB3D977D98AFFDC115327EB52A6B384C39FB71E6B859FDC3800E12B9E13DE
+    command: /bin/sh -c "alembic upgrade head && python3 seed.py && uvicorn main:app --host 0.0.0.0 --port 8000"
 
   redis:
     image: "redis:alpine"
@@ -23,3 +30,20 @@ services:
       - redis
     environment:
       - REDIS_URL=redis://redis:6379/0
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASS=password
+
+  db:
+    image: postgres:15.0
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
