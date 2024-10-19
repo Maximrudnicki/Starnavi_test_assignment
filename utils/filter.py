@@ -1,7 +1,6 @@
 from openai import OpenAI
 
-
-API_KEY = "sk-pPx-KnrZIlCapTuNaZex0GAhSH9u0GKnTGIZAsM4_bT3BlbkFJFJu3jZ7kQ53CBfguDqDB1u377oXM95DypE--siwGMA"
+from config.config import API_KEY
 
 
 client = OpenAI(api_key=API_KEY)
