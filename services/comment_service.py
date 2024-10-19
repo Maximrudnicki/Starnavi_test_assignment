@@ -21,7 +21,10 @@ class CommentService:
         comment = Comment(post_id=post_id, user_id=user_id, text=text)
         comment_id = self.comment_repository.create(comment)
 
-        self.check_comment_for_moderation(comment_id)
+        try:
+            self.check_comment_for_moderation(comment_id)
+        except:
+            return comment_id
         
         return comment_id
 

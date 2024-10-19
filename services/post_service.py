@@ -17,8 +17,11 @@ class PostService:
         post = Post(title=title, text=text, author_id=author_id)
         post_id = self.post_repository.create(post)
 
-        self.check_post_for_moderation(post_id)
-
+        try:
+            self.check_post_for_moderation(post_id)
+        except:
+            return post_id
+        
         return post_id
 
     def get_post_by_id(self, post_id: int) -> Post | None:
