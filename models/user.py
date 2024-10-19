@@ -14,7 +14,7 @@ class User(Base):
     password: Mapped[str]
     is_banned: Mapped[bool] = mapped_column(default=False)
     auto_reply_enabled: Mapped[bool] = mapped_column(default=True)
-    auto_reply_delay: Mapped[int] = mapped_column(default=3600)
+    auto_reply_delay: Mapped[int] = mapped_column(default=60)
 
     posts: Mapped[list["Post"]] = relationship("Post", back_populates="user")
     comments: Mapped[list["Comment"]] = relationship("Comment", back_populates="user")

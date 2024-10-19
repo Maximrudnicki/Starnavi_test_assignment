@@ -5,7 +5,6 @@ from datetime import datetime
 
 class CommentCreate(BaseModel):
     post_id: int
-    user_id: int
     text: str
 
     class Config:
