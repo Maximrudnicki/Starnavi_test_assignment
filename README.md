@@ -45,7 +45,7 @@ To stop the containers: docker-compose down
      DB_PASS=
     ```
 
-   - Apply migrations and insert some data in database:
+    - Apply migrations and insert some data in database:
      ```bash
      alembic upgrade head
      python seed.py
@@ -81,6 +81,8 @@ Keep in mind that you need to be signed in in Postman and create a fork before u
 ### Additional Information
 
 Also, I need to mention that you can check [comments daily breakdown](http://127.0.0.1:8000/api/v1/comments-daily-breakdown?date_from=2023-07-17&date_to=2024-11-19)
+
+Analytics implemented separately in order to follow SOLID principles
 
 Of course there is a filter for unappropriate comments and posts. Posts are deleted and comment are banned and shadowed right after creation and checking (you cannot get banned comments using the API, you would need to make a request directly to the DB or use pgadmin to see unappropriate content). The feature was impemented using OpenAI API, you can check the code in `utils/filter.py`
 
