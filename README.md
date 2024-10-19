@@ -43,7 +43,7 @@ To stop the containers: docker-compose down
      DB_NAME=
      DB_USER=
      DB_PASS=
-    ```
+    ``` `
 
     - Apply migrations and insert some data in database:
      ```bash
