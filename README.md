@@ -66,7 +66,7 @@ To stop the containers: docker-compose down
 
    Once everything is up and running, visit [http://localhost:8000](http://localhost:8000) in your web browser.
 
-   Alternatively, you can test the API using Postman by visiting this collection: [SCA Postman Collection](https://www.postman.com/navigation-engineer-62741940/test-assignment-for-starnavi-by-maxym-rudnytskyi/overview)
+   Alternatively, you can test the API using Postman by visiting this collection: [Postman Collection](https://www.postman.com/navigation-engineer-62741940/test-assignment-for-starnavi-by-maxym-rudnytskyi/overview)
 4. **Stop the Application**
     If you need to stop the app, just press Ctrl+C or enter this for docker:
      ```bash
@@ -86,6 +86,10 @@ Analytics implemented separately in order to follow SOLID principles
 Of course there is a filter for unappropriate comments and posts. Posts are deleted and comment are banned and shadowed right after creation and checking (you cannot get banned comments using the API, you would need to make a request directly to the DB or use pgadmin to see unappropriate content). The feature was impemented using OpenAI API, you can check the code in `utils/filter.py`
 
 There is no any of the unappropriate content (comment or post) but you can make sure that everything is implemented by your own.
+
+Also, unfortunately, I have some issues with OpenAI keys. Please be free to contact me on telegram or email: https://t.me/mrudnitskiy or rydnizkui@gmail.com
+
+Just go utils/filter.py and check the key, there are two of them know. I hope this will help.
 
 ### Auto-Reply Implementation
 
